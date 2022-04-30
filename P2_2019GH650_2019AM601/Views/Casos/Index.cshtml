@@ -1,0 +1,81 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<casosReportados>
+@{
+}
+<main class="container">
+    <div class="text-center">
+        <h1>Registro de covid</h1>
+
+        <p>El siguiente es para llevar el registro de casos reportados de </br>Covid por departamento y genero.</p>
+    </div>
+
+    <h3 class="my-5">Reportar casos</h3>
+
+
+   <form asp-action="postNew" asp-controller="Casos" method="post"> 
+  <div class="row">
+    <div class="col-md-6 p-2">
+        <p>Departamento</p>
+     	@Html.DropDownList("departamentosId", (IEnumerable<SelectListItem>) ViewBag.comboDepartamentos, new {@class = "form-select", style = "width: 100%;" } )
+    </div>
+    <div class="col-md-6 p-2">
+        <p>Genero</p> 
+     @Html.DropDownList("generoId", (IEnumerable<SelectListItem>) ViewBag.comboGenero, new {@class = "form-select", style = "width: 100%;" })
+    </div>
+  </div>
+   
+       <div class="row">
+           <div class="col-md-4 p-2">
+                    @Html.Label("Casos confirmados ")
+                    @Html.TextBox("Confirmados", "0", new { @min = "0", @type = "number", @class = "form-control", style = "width: 100%;" })
+
+            </div>
+            <div class="col-md-4 p-2">
+                    @Html.Label("Numero de recuperados ")
+                    @Html.TextBox("Recuperados", "0", new { @min = "0", @type = "number", @class = "form-control", style = "width: 100%;" })
+
+            </div>
+            <div class="col-md-4 p-2">
+                    @Html.Label("Numero de fallecidos  ")
+                    @Html.TextBox("Fallecidos", "0", new { @min = "0", @type = "number", @class = "form-control", style = "width: 100%;" })
+
+            </div>
+
+       </div>
+
+        <button class="btn btn-success btn-block my-3" type="submit" >Guardar registro</button>
+    </form>
+
+
+    <div class="card shadow border-0 rounded">
+        <div class="card-body">
+            <h5 class="card-title">Casos reportados</h5>
+            <table class="table table-striped table-borderless">
+                <thead class="table-ligh">
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.departamentosId)</th>
+                        <th>@Html.DisplayNameFor(model => model.generoId)</th>
+                        <th>@Html.DisplayNameFor(model => model.confirmados)</th>
+                        <th>@Html.DisplayNameFor(model => model.recuperados)</th>
+                        <th>@Html.DisplayNameFor(model => model.fallecidos)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                   {
+                       <tr>
+                            <th>@Html.DisplayFor(modelItem => item.departamento)</th>
+                            <td>@Html.DisplayFor(modelItem => item.genero)</td>
+                            <td>@item.confirmados</td>
+                            <td>@item.recuperados</td>
+                            <td>@item.fallecidos</td>
+                        </tr>
+                   }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <footer class="text-center">Derechos reservados: Julio Aguilar - Alejandro Galdamez</footer>
+</main>
